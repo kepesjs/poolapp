@@ -1,0 +1,27 @@
+<p id="notice"><%= notice %></p>
+
+<h1>Mattches</h1>
+
+<table>
+  <thead>
+    <tr>
+      <th>Mattch date</th>
+      <th colspan="3"></th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @mattches.each do |mattch| %>
+      <tr>
+        <td><%= mattch.mattch_date %></td>
+        <td><%= link_to 'Show', mattch %></td>
+        <td><%= link_to 'Edit', edit_mattch_path(mattch) %></td>
+        <td><%= link_to 'Destroy', mattch, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<br>
+
+<%= link_to 'New Mattch', new_mattch_path %>

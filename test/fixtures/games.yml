@@ -1,0 +1,11 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  mattch: one
+  game_number: 1
+  forfeit: false
+
+two:
+  mattch: two
+  game_number: 2
+  forfeit: false

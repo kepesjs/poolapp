@@ -1,0 +1,22 @@
+<%= form_for(mattch) do |f| %>
+  <% if mattch.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(mattch.errors.count, "error") %> prohibited this mattch from being saved:</h2>
+
+      <ul>
+      <% mattch.errors.full_messages.each do |message| %>
+        <li><%= message %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="field">
+    <%= f.label :mattch_date %>
+    <%= f.date_select :mattch_date %>
+  </div>
+
+  <div class="actions">
+    <%= f.submit %>
+  </div>
+<% end %>

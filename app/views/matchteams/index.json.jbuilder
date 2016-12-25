@@ -1,0 +1,1 @@
+json.array! @matchteams, partial: 'matchteams/matchteam', as: :matchteam

@@ -1,0 +1,11 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  mattch: one
+  team: one
+  home: false
+
+two:
+  mattch: two
+  team: two
+  home: false

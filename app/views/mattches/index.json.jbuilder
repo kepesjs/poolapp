@@ -1,0 +1,1 @@
+json.array! @mattches, partial: 'mattches/mattch', as: :mattch

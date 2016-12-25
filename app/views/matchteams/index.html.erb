@@ -1,0 +1,31 @@
+<p id="notice"><%= notice %></p>
+
+<h1>Matchteams</h1>
+
+<table>
+  <thead>
+    <tr>
+      <th>Mattch</th>
+      <th>Team</th>
+      <th>Home</th>
+      <th colspan="3"></th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @matchteams.each do |matchteam| %>
+      <tr>
+        <td><%= matchteam.mattch_id %></td>
+        <td><%= matchteam.team_id %></td>
+        <td><%= matchteam.home %></td>
+        <td><%= link_to 'Show', matchteam %></td>
+        <td><%= link_to 'Edit', edit_matchteam_path(matchteam) %></td>
+        <td><%= link_to 'Destroy', matchteam, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<br>
+
+<%= link_to 'New Matchteam', new_matchteam_path %>
