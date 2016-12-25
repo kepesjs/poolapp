@@ -6,4 +6,9 @@ class Player < ApplicationRecord
 	has_many :games, through: :gamesplayers
 	has_many :mattches, through: :matchteams
   
+def full_name
+	f_name + " " + nickname + " " + l_name
+end	
+
+
 end

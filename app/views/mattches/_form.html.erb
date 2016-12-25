@@ -16,6 +16,14 @@
     <%= f.date_select :mattch_date %>
   </div>
 
+  <div>
+  <%= f.fields_for :matchteams do |m| %>
+    <%= m.label :team_id %>
+    <%= m.number_field :team_id %>
+  <% end %>
+
+  </div>
+
   <div class="actions">
     <%= f.submit %>
   </div>

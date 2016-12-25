@@ -1,6 +1,6 @@
 class Matchteam < ApplicationRecord
 
-	belongs_to :mattch
-	belongs_to :team
+	belongs_to :mattch, inverse_of: :matchteams
+	belongs_to :team, required: false
 
 end

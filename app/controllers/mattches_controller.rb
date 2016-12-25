@@ -15,6 +15,10 @@ class MattchesController < ApplicationController
   # GET /mattches/new
   def new
     @mattch = Mattch.new
+    2.times { @mattch.matchteams.build }
+
+   #@mattch.matchteams.build
+
   end
 
   # GET /mattches/1/edit
@@ -69,6 +73,6 @@ class MattchesController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def mattch_params
-      params.require(:mattch).permit(:mattch_date)
+      params.require(:mattch).permit(:mattch_date, matchteams_attributes: [:team_id, :mattch_id, :id])
     end
 end
