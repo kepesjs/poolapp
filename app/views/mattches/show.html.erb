@@ -1,9 +1,18 @@
 <p id="notice"><%= notice %></p>
 
 <p>
-  <strong>Mattch date:</strong>
+  <strong>Match date:</strong>
   <%= @mattch.mattch_date %>
 </p>
+
+<p>
+  <strong>
+  <% @mattch.teams.each do |team|%>
+     <%= team.name %>
+  <% end %>
+  </strong>
+</p>
+
 
 <%= link_to 'Edit', edit_mattch_path(@mattch) %> |
 <%= link_to 'Back', mattches_path %>

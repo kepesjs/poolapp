@@ -16,6 +16,7 @@ class MattchesController < ApplicationController
   def new
     @mattch = Mattch.new
     2.times { @mattch.matchteams.build }
+    21.times { @mattch.games.build }
 
    #@mattch.matchteams.build
 
@@ -73,6 +74,8 @@ class MattchesController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def mattch_params
-      params.require(:mattch).permit(:mattch_date, matchteams_attributes: [:team_id, :mattch_id, :id, :home])
+      params.require(:mattch).permit(:mattch_date, 
+        matchteams_attributes: [:team_id, :mattch_id, :id, :home],
+         games_attributes: [:forfeit, :id, :game_number])
     end
 end

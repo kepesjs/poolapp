@@ -17,15 +17,25 @@
   </div>
 
   <div>
-  <%= f.fields_for :matchteams do |m| %>
-    <%= m.label :team_id %>
-    <%= m.collection_select(:team_id, Team.all.order("name"), :id, :name) %>
+    <%= f.fields_for :matchteams do |m| %>
+      <%= m.label :team_id %>
+      <%= m.collection_select(:team_id, Team.all.order("name"), :id, :name) %>
 
-    <%= m.label :home %>
-    <%= m.check_box(:home) %>    
+      <%= m.label :home %>
+      <%= m.check_box(:home) %>    
+    <% end %>
+  </div>
 
-  <% end %>
+  <div>
+    <% @counter_a = 0 %>
+    <%= f.fields_for :games do |g| %>
 
+      <%= g.label :game_number %>     <%= @counter_a += 1 %>
+      <%= g.hidden_field :game_number, value: @counter_a %>    
+
+      <%= g.label :forfeit %>
+      <%= g.check_box(:forfeit) %>    
+    <% end %>
   </div>
 
   <div class="actions">

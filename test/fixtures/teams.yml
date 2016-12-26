@@ -2,10 +2,10 @@
 
 one:
   name: MyString
-  captain: 1
-  captain2: 1
+  captain_1: one
+  captain_2: one
 
 two:
   name: MyString
-  captain: 1
-  captain2: 1
+  captain_1: two
+  captain_2: two
