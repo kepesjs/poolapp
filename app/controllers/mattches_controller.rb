@@ -16,7 +16,15 @@ class MattchesController < ApplicationController
   def new
     @mattch = Mattch.new
     2.times { @mattch.matchteams.build }
-    21.times { @mattch.games.build }
+#    21.times { @mattch.games.build }
+#    4.times { @mattch.players.build }
+
+    21.times do
+      @xxx = @mattch.games.build
+      4.times do
+        @xxx.gameplayers.build
+      end
+    end
 
    #@mattch.matchteams.build
 
@@ -76,6 +84,7 @@ class MattchesController < ApplicationController
     def mattch_params
       params.require(:mattch).permit(:mattch_date, 
         matchteams_attributes: [:team_id, :mattch_id, :id, :home],
-         games_attributes: [:forfeit, :id, :game_number])
+         games_attributes: [:forfeit, :id, :game_number, 
+         gameplayers_attributes: [:id, :player_id, :eight]])
     end
 end
