@@ -19,7 +19,11 @@
   <div>
   <%= f.fields_for :matchteams do |m| %>
     <%= m.label :team_id %>
-    <%= m.number_field :team_id %>
+    <%= m.collection_select(:team_id, Team.all.order("name"), :id, :name) %>
+
+    <%= m.label :home %>
+    <%= m.check_box(:home) %>    
+
   <% end %>
 
   </div>

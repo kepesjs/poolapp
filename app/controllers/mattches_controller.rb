@@ -73,6 +73,6 @@ class MattchesController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def mattch_params
-      params.require(:mattch).permit(:mattch_date, matchteams_attributes: [:team_id, :mattch_id, :id])
+      params.require(:mattch).permit(:mattch_date, matchteams_attributes: [:team_id, :mattch_id, :id, :home])
     end
 end

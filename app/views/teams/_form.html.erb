@@ -18,12 +18,12 @@
 
   <div class="field">
     <%= f.label :captain %>
-    <%= f.number_field :captain %>
+    <%= f.collection_select(:captain, Player.all.order("l_name"), :id, :full_name) %>
   </div>
 
   <div class="field">
     <%= f.label :captain2 %>
-    <%= f.number_field :captain2 %>
+    <%= f.collection_select(:captain2, Player.all.order("l_name"), :id, :full_name) %>
   </div>
 
   <div class="actions">
