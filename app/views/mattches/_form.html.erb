@@ -16,19 +16,22 @@
     <%= f.date_select :mattch_date %>
   </div>
 
-  <div>
+  <table>
+
+  <tr>
 
     <%= f.fields_for :matchteams do |m| %>
+      <td colspan="2">
       <%= m.label :team_id %>
       <%= m.collection_select(:team_id, Team.all.order("name"), :id, :name) %>
-
       <%= m.label :home %>
-      <%= m.check_box(:home) %>    
+      <%= m.check_box(:home) %>   
+          <%= @team_b_id = :team_id  %>
+      </td>    
     <% end %>
 
-  </div>
+  </tr>
 
-  <table>
   <tr>
   
     <% @counter_a = 0 %>
@@ -52,7 +55,7 @@
   <tr>
     <%= g.fields_for :gameplayers do |p| %>
     <td>
-      <%= p.collection_select(:player_id, Player.all.order("l_name"), :id, :full_name) %>
+      <%= p.collection_select(:player_id, Player.team_scope(1).order("l_name"), :id, :full_name) %>
       8<%= p.check_box(:eight) %>
     </td>  
       <% end %>
