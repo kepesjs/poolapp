@@ -1,41 +1,51 @@
 <p id="notice"><%= notice %></p>
 
-<p>
-  <strong>Name:</strong>
-  <%= @team.name %>
+<p><h1> <%= @team.name %> </h1>
 </p>
 
 <p>
   <strong>Captain:</strong>
-  <%= @team.captain %>
+  <%= @team.captain_1.full_name %>
 </p>
 
 <p>
   <strong>Captain2:</strong>
-  <%= @team.captain2 %>
+  <%= @team.captain_2.full_name %>
 </p>
 
 <div>
+<p><h2> Players </h1>
 <table>
-  <thead>
+<tbody>
+  <% @team.players.each do |player| %>
     <tr>
-      <th>Name</th>
-      <th colspan="3"></th>
+      <td><%= player.full_name %></td>
+      <td><%= link_to 'Show', player %></td>
+      <td><%= link_to 'Edit', edit_player_path(player) %></td>
+      <td><%= link_to 'Destroy', player, method: :delete, data: { confirm: 'Are you sure?' } %></td>
     </tr>
-  </thead>
-
-  <tbody>
-    <% @team.players.each do |player| %>
-      <tr>
-        <td><%= player.full_name %></td>
-        <td><%= link_to 'Show', player %></td>
-        <td><%= link_to 'Edit', edit_player_path(player) %></td>
-        <td><%= link_to 'Destroy', player, method: :delete, data: { confirm: 'Are you sure?' } %></td>
-      </tr>
-    <% end %>
-  </tbody>
+  <% end %>
+</tbody>
 </table>
 </div>
+
+<div>
+<p><h2> Matches </h1>
+<table>
+<tbody>
+  <% @team.mattches.each do |match| %>
+    <tr>
+      <td><%= match.mattch_date %></td>
+      <td><%= link_to 'Show', match %></td>
+      <td><%= link_to 'Edit', edit_mattch_path(match) %></td>
+      <td><%= link_to 'Destroy', match, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+    </tr>
+  <% end %>
+</tbody>
+</table>
+</div>
+
+
 
 
 <%= link_to 'Edit', edit_team_path(@team) %> |
