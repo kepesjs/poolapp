@@ -16,7 +16,7 @@
     <%= f.date_select :mattch_date %>
   </div>
 
-  <table>
+  <table class="table">
 
   <tr>
 
@@ -26,7 +26,7 @@
       <%= m.collection_select(:team_id, Team.all.order("name"), :id, :name) %>
       <%= m.label :home %>
       <%= m.check_box(:home) %>   
-          <%= @team_b_id = :team_id  %>
+          <% @team_b_id = :team_id  %>
       </td>    
     <% end %>
 
@@ -34,33 +34,42 @@
 
   <tr>
   
-    <% @counter_a = 0 %>
-    <%= f.fields_for :games do |g| %>
+  <% @counter_a = 0 %>
+  <% @counter_b = 0 %>
+
+  <%= f.fields_for :games do |g| %>
 
       <td>
-        <%= g.label :game_number %>
+    <%= g.label :game_number %>
       </td>
       <td>        
-        <%= @counter_a += 1 %>
+    <%= @counter_a += 1 %>
       </td>
 
-      <%= g.hidden_field :game_number, value: @counter_a %>    
+    <%= g.hidden_field :game_number, value: @counter_a %>    
 
       <td>        
-        <%= g.label :forfeit %>
-        <%= g.check_box(:forfeit) %>    
+    <%= g.label :forfeit %>
+    <%= g.check_box(:forfeit) %>    
       </td>
+      </tr>
 
-  </tr>
-  <tr>
+      <tr>
+    <% @counter_b = 0 %>
     <%= g.fields_for :gameplayers do |p| %>
-    <td>
-      <%= p.collection_select(:player_id, Player.team_scope(1).order("l_name"), :id, :full_name) %>
+        <td>
+      <%= p.collection_select(:player_id, Player.all.order("l_name"), :id, :full_name) %>
       8<%= p.check_box(:eight) %>
-    </td>  
+
+      <% @counter_b += 1 %>
+      <% if @counter_b == 2 %>
+        -------------------------------
       <% end %>
-   </tr>   
+
+        </td>  
     <% end %>
+      </tr>   
+  <% end %>
 
   </table>
   </div>
