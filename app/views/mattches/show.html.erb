@@ -60,18 +60,24 @@
 
     <%= g.hidden_field :game_number, value: @counter_a %>    
 
-				<td> <%= radio_button_tag(:winner, @team_a) %>
-				<%= radio_button_tag(:winner, 0, 'true') %>
-				<%= radio_button_tag(:winner, @team_b) %></td>     
-      <td>        
-      </td>
-      </tr>
-
+				<td> 
+    <%= g.radio_button :winning_team_id, @team_a %>
+		<%= g.radio_button :winning_team_id, 0 %>
+		<%= g.radio_button :winning_team_id, @team_b %>
+        </td>     
+        <td>        
+        </td>
+        </tr>
       <tr>
+
     <% @counter_b = 0 %>
     <%= g.fields_for :gameplayers do |p| %>
         <td>
-      <%= p.collection_select(:player_id, Player.all.order("l_name"), :id, :full_name) %>
+    <% if @counter_b < 2 %>    
+  <%= p.collection_select(:player_id, Player.team_scope(@team_a).order("l_name"), :id, :full_name) %>
+    <% else %>
+  <%= p.collection_select(:player_id, Player.team_scope(@team_b).order("l_name"), :id, :full_name) %>
+    <% end %>
       8<%= p.check_box(:eight) %>
 
       <% @counter_b += 1 %>

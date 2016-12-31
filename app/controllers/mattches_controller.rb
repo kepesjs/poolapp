@@ -85,7 +85,7 @@ class MattchesController < ApplicationController
     def mattch_params
       params.require(:mattch).permit(:mattch_date, 
         matchteams_attributes: [:team_id, :mattch_id, :id, :home],
-         games_attributes: [:forfeit, :id, :game_number, 
+         games_attributes: [:forfeit, :id, :game_number, :winning_team_id,
          gameplayers_attributes: [:id, :player_id, :eight]])
     end
 end
