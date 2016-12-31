@@ -11,70 +11,36 @@
     </div>
   <% end %>
 
-  <div class="field">
-    <%= f.label :mattch_date %>
-    <%= f.date_select :mattch_date %>
+  <div class="row">
+    <div class="col-sm-4">
+    </div>
+    <div class="col-sm-4">
+      <div class="field">
+        <%= f.label :match_date %>
+        <%= f.date_select :mattch_date %>
+      </div>
+    </div> 
   </div>
 
-  <table class="table">
-
-  <tr>
-
-    <%= f.fields_for :matchteams do |m| %>
-      <td colspan="2">
-      <%= m.label :team_id %>
-      <%= m.collection_select(:team_id, Team.all.order("name"), :id, :name) %>
-      <%= m.label :home %>
-      <%= m.check_box(:home) %>   
+  <%= f.fields_for :matchteams do |m| %>
+    <div class="row">
+      <div class="col-sm-4">
+        <%= m.label :team_id %>
+        <%= m.collection_select(:team_id, Team.all.order("name"), :id, :name) %>
+        <%= m.label :home %>
+        <%= m.check_box(:home) %>   
           <% @team_b_id = :team_id  %>
-      </td>    
-    <% end %>
-
-  </tr>
-
-  <tr>
-  
-  <% @counter_a = 0 %>
-  <% @counter_b = 0 %>
-
-  <%= f.fields_for :games do |g| %>
-
-      <td>
-    <%= g.label :game_number %>
-      </td>
-      <td>        
-    <%= @counter_a += 1 %>
-      </td>
-
-    <%= g.hidden_field :game_number, value: @counter_a %>    
-
-      <td>        
-    <%= g.label :forfeit %>
-    <%= g.check_box(:forfeit) %>    
-      </td>
-      </tr>
-
-      <tr>
-    <% @counter_b = 0 %>
-    <%= g.fields_for :gameplayers do |p| %>
-        <td>
-      <%= p.collection_select(:player_id, Player.all.order("l_name"), :id, :full_name) %>
-      8<%= p.check_box(:eight) %>
-
-      <% @counter_b += 1 %>
-      <% if @counter_b == 2 %>
-        -------------------------------
-      <% end %>
-
-        </td>  
-    <% end %>
-      </tr>   
+      </div>    
+    </div>
   <% end %>
-
-  </table>
-  </div>
+    
+  </br>
 
   <div class="actions">
-    <%= f.submit %>
+    <input type="submit" name="commit" value="Create Match" data-disable-with="Create Mattch" /> 
+    <input type="submit" name="addGames" value="Add Games" data-disable-with="Create Mattch" /> 
   </div>
+
+  </br>
+
 <% end %>

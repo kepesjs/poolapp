@@ -1,6 +1,5 @@
-<p id="notice"><%= notice %></p>
-
-   <% if @mattch.errors.any? %>
+<%= form_for(mattch) do |f| %>
+  <% if mattch.errors.any? %>
     <div id="error_explanation">
       <h2><%= pluralize(mattch.errors.count, "error") %> prohibited this mattch from being saved:</h2>
 
@@ -12,36 +11,26 @@
     </div>
   <% end %>
 
+  <div class="field">
+    <%= f.label :mattch_date %>
+    <%= f.date_select :mattch_date %>
+  </div>
 
-<p>
-  <strong>Match date:</strong>
-  <%= @mattch.mattch_date %>
-</p>
+  <table class="table">
 
+  <tr>
 
-<table class="table table-bordered">
-<tr>
+    <%= f.fields_for :matchteams do |m| %>
+      <td colspan="2">
+      <%= m.label :team_id %>
+      <%= m.collection_select(:team_id, Team.all.order("name"), :id, :name) %>
+      <%= m.label :home %>
+      <%= m.check_box(:home) %>   
+          <% @team_b_id = :team_id  %>
+      </td>    
+    <% end %>
 
-<% @team_a = 0 %>
-<% @team_b = 0 %>
-<% @counter_c = 0 %>
-
-<% @mattch.teams.each do |team|%>
-	<td colspan="2">
-  	<h2> <%= team.name %> </h2>
-  </td>	
-  <% @counter_c += 1 %>	
-  <% if @counter_c == 1 %>
-  	<td> <%= @counter_c %> </td>
-  	<% @team_a = team.id %>
-  <% else %>
-  	<% @team_b = team.id %>
-  <% end %>
-<% end %>
-
-</tr>
-
-<%= form_for(@mattch) do |f| %>
+  </tr>    
 
   <tr>
   
@@ -51,19 +40,17 @@
   <%= f.fields_for :games do |g| %>
 
       <td>
-    <%= g.label :game_number %>   <%= @counter_a += 1 %>
+    <%= g.label :game_number %>
       </td>
       <td>        
-    <%= g.label :forfeit %>
-    <%= g.check_box(:forfeit) %>    
+    <%= @counter_a += 1 %>
       </td>
 
     <%= g.hidden_field :game_number, value: @counter_a %>    
 
-				<td> <%= radio_button_tag(:winner, @team_a) %>
-				<%= radio_button_tag(:winner, 0, 'true') %>
-				<%= radio_button_tag(:winner, @team_b) %></td>     
       <td>        
+    <%= g.label :forfeit %>
+    <%= g.check_box(:forfeit) %>    
       </td>
       </tr>
 
@@ -76,10 +63,10 @@
 
       <% @counter_b += 1 %>
       <% if @counter_b == 2 %>
-      	<td> 0  to  1</td>
+        -------------------------------
       <% end %>
-        </td> 
 
+        </td>  
     <% end %>
       </tr>   
   <% end %>
@@ -91,8 +78,3 @@
     <%= f.submit %>
   </div>
 <% end %>
-
-
-
-<%= link_to 'Edit', edit_mattch_path(@mattch) %> |
-<%= link_to 'Back', mattches_path %>

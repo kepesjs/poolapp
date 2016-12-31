@@ -4,12 +4,14 @@
     <title>Poolappx</title>
     <%= csrf_meta_tags %>
 
+		<meta name="viewport" content="width=device-width, initial-scale=1">
+
     <%= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track': 'reload' %>
     <%= stylesheet_link_tag    'custom', media: 'all', 'data-turbolinks-track': 'reload' %>
     <%= javascript_include_tag 'application', 'data-turbolinks-track': 'reload' %>
   </head>
 
-
+<div class="container-fluid">
 <nav class="navbar navbar-inverse navbar-static-top">
 	<div class="container">
 		<div class="navbar-header">
@@ -47,5 +49,7 @@
 <%= link_to 'All Players', players_path %>
 <%= link_to 'All Matches', mattches_path %>
 <%= link_to 'All Teams', teams_path %>
+
+</div>
 
 </html>
