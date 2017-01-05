@@ -1,24 +1,36 @@
 <p id="notice"><%= notice %></p>
 
-<h1>Players</h1>
+<h1>All Players</h1>
 
 <table>
   <thead>
     <tr>
-      <th>F name</th>
-      <th>L name</th>
-      <th>Nickname</th>
+      <th>Name</th>
+      <th>Team</th>
+      <th>games</th>
+      <th>wins</th>
+      <th>%</th>
+      <th>8's</th>
+      
       <th colspan="3"></th>
     </tr>
   </thead>
 
   <tbody>
-    <% @players.each do |player| %>
+    <% @players.order(:l_name).each do |player| %>
       <tr>
-        <td><%= player.f_name %></td>
-        <td><%= player.l_name %></td>
-        <td><%= player.nickname %></td>
+        <td><%= player.full_name %></td>
         <td><%= player.team.name%></td>
+        <% @games_played = player.games.where.not(:winning_team_id => nil ).count %>
+        <td align="right"><%= @games_played %></td>
+        <% @games_won = player.games.where(:winning_team_id => player.team_id).count %>
+        <td align="right"><%= @games_won %></td>
+        <% if @games_played != 0 %>
+          <td align="right"><%= ((@games_won.to_f/@games_played)*100).round(2) %>%</td>
+        <% else %>
+          <td align="right"> 0 </td>
+        <% end %>  
+        <td align="right"><%= player.gameplayers.where(:eight => true).count%></td>
         <td><%= link_to 'Show', player %></td>
         <td><%= link_to 'Edit', edit_player_path(player) %></td>
         <td><%= link_to 'Destroy', player, method: :delete, data: { confirm: 'Are you sure?' } %></td>

@@ -6,9 +6,6 @@
 <p>
   <strong>Captain:</strong>
   <%= @team.captain_1.full_name %>
-</p>
-
-<p>
   <strong>Captain2:</strong>
   <%= @team.captain_2.full_name %>
 </p>
@@ -16,16 +13,39 @@
 <div>
 <p><h2> Players </h1>
 <table>
+<thead>
+  <tr>
+    <th>Name</th>
+    <th>Team</th>
+    <th>games</th>
+    <th>wins</th>
+    <th>%</th>
+    <th>8's</th>
+    
+    <th colspan="3"></th>
+  </tr>
 <tbody>
-  <% @team.players.each do |player| %>
+  <% @team.players.order(:l_name).each do |player| %>
     <tr>
       <td><%= player.full_name %></td>
+      <td><%= player.team.name%></td>
+      <% @games_played = player.games.where.not(:winning_team_id => nil ).count %>
+      <td align="right"><%= @games_played %></td>
+      <% @games_won = player.games.where(:winning_team_id => player.team_id).count %>
+      <td align="right"><%= @games_won %></td>
+      <% if @games_played != 0 %>
+        <td align="right"><%= ((@games_won.to_f/@games_played)*100).round(2) %>%</td>
+      <% else %>
+        <td align="right"> 0 </td>
+      <% end %>  
+      <td align="right"><%= player.gameplayers.where(:eight => true).count%></td>
       <td><%= link_to 'Show', player %></td>
       <td><%= link_to 'Edit', edit_player_path(player) %></td>
       <td><%= link_to 'Destroy', player, method: :delete, data: { confirm: 'Are you sure?' } %></td>
     </tr>
   <% end %>
 </tbody>
+
 </table>
 </div>
 

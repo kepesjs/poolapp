@@ -1,19 +1,59 @@
 <p id="notice"><%= notice %></p>
 
-<p>
-  <strong>F name:</strong>
-  <%= @player.f_name %>
-</p>
+<h1> 
+  <%= @player.full_name %> - <%= @player.team.name %> #<%= @player.team_id %>
+</h1>
 
-<p>
-  <strong>L name:</strong>
-  <%= @player.l_name %>
-</p>
 
-<p>
-  <strong>Nickname:</strong>
-  <%= @player.nickname %>
-</p>
+<table>
+Games
+<thead>
+	<tr>
+  	<th colspan="2">Match</th>
+    <th>Game</th>
+    <th>Eight</th>
+    <th>Win</th>
+    <th>Partner</th>
+    <th>Opponate 1</th>
+    <th>Opponate 2</th>
+    <th colspan="3"></th>
+  </tr>
+</thead>
+
+<% @player.games.where.not(:winning_team_id => nil ).each do |game| %>
+	<tr>
+  	<td><%= game.mattch.mattch_date %></td>
+    <td> vs <%= Team.find(game.matchteams.where.not(:team_id => @player.team_id ).first.team_id).name %></td>
+    <td> - game # - <%= game.game_number %></td>
+    <td> <% if game.forfeit %>
+      		 	Forfeit
+     		 <%else %>
+     		 <% if @player.gameplayers.where(:game_id => game).first.eight %>
+     		 		Eight!
+     		 <%else %>
+        		 	 -------
+         <% end %>		 	 
+     		 <% end %> </td>	      
+    <td> <% if game.winning_team_id == @player.team_id %>
+        		 	 Won
+     		 <%else %>
+        		 	 Lost
+     		 <% end %> </td>	  
+
+    <% game.players.where(:team_id => @player.team_id ).where.not(:id => @player.id ).each do |others| %>   
+    	<td><%= others.full_name %></td>
+    <% end %>
+
+    <% game.players.where.not(:team_id => @player.team_id ).each do |others| %>   
+     	<td><%= others.full_name %></td>
+    <% end %>
+
+    <td><%= link_to 'Show', game %></td>
+    <td><%= link_to 'Edit', edit_game_path(game) %></td>
+    <td><%= link_to 'Destroy', game, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+    </tr>
+  <% end %>
+</table>
 
 <%= link_to 'Edit', edit_player_path(@player) %> |
 <%= link_to 'All Players', players_path %>
