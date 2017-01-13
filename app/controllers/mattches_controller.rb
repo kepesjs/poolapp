@@ -1,4 +1,4 @@
-class MattchesController < ApplicationController
+ class MattchesController < ApplicationController
   before_action :set_mattch, only: [:show, :edit, :update, :destroy]
 
   # GET /mattches
@@ -11,19 +11,18 @@ class MattchesController < ApplicationController
   # GET /mattches/1.json
   def show
 
-   21.times do
-      @xxx = @mattch.games.build
-      4.times do
-        @xxx.gameplayers.build
-      end
-    end
-
   end
 
   # GET /mattches/new
   def new
     @mattch = Mattch.new
     2.times { @mattch.matchteams.build }
+    21.times do
+      @xxx = @mattch.games.build(:winning_team_id => 0)
+      4.times do
+        @xxx.gameplayers.build
+      end
+    end
   end
 
   # GET /mattches/1/edit
@@ -37,13 +36,8 @@ class MattchesController < ApplicationController
 
     respond_to do |format|
       if @mattch.save
-        if params[:addGames]
           format.html { redirect_to @mattch, notice: 'Mattch was successfully created.' }
           format.json { render :show, status: :created, location: @mattch }
-        else
-          format.html { redirect_to mattches_url, notice: 'Mattch was successfully xxx created.' }
-          format.json { render :show, status: :created, location: @mattch }
-        end  
       else
         format.html { render :new }
         format.json { render json: @mattch.errors, status: :unprocessable_entity }

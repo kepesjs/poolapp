@@ -53,9 +53,21 @@
 <p><h2> Matches </h1>
 <table>
 <tbody>
-  <% @team.mattches.each do |match| %>
+  <% @team.mattches.order(:mattch_date).each do |match| %>
     <tr>
       <td><%= match.mattch_date %></td>
+      <td><%= match.teams.where.not(:id => @team).first.name%></td>
+
+      <td><% if (match.matchteams.where(:team_id => @team).first.home ) %>
+            Home
+          <% else %>
+            Away
+          <% end %>
+      </td>
+
+      <td><%= match.games.where(:winning_team_id => @team).count%></td>
+      <td><%= match.games.where.not(:winning_team_id => @team).where.not(:winning_team_id => 0).count%></td>
+
       <td><%= link_to 'Show', match %></td>
       <td><%= link_to 'Edit', edit_mattch_path(match) %></td>
       <td><%= link_to 'Destroy', match, method: :delete, data: { confirm: 'Are you sure?' } %></td>

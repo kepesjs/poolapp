@@ -1,3 +1,15 @@
+    <%= radio_button_tag 'winning_team_id', @team_a_id, true %>
+    <%= radio_button_tag 'winning_team_id', '0' %>
+    <%= radio_button_tag 'winning_team_id', @team_b_id %>
+
+        <%= m.collection_select(:team_id, Team.all.order("name"), :id, :name, options={:include_blank => "Select Team",:selected=>0}, html_options={:onchange=>"this.style.backgroundColor='#990000'"}) %>
+
+
+,:selected=>0
+
+,:selected=>0
+
+
 <%= form_for(mattch) do |f| %>
   <% if mattch.errors.any? %>
     <div id="error_explanation">

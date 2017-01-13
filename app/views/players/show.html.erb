@@ -4,15 +4,19 @@
   <%= @player.full_name %> - <%= @player.team.name %> #<%= @player.team_id %>
 </h1>
 
+Matches played:<%= @player.games.where.not(:winning_team_id => nil ).count("DISTINCT mattch_id") %>
 
-<table>
-Games
+<h2> Games </h2>
+
+
+
+<table class="table">
 <thead>
 	<tr>
   	<th colspan="2">Match</th>
     <th>Game</th>
-    <th>Eight</th>
     <th>Win</th>
+    <th>Eight</th>
     <th>Partner</th>
     <th>Opponate 1</th>
     <th>Opponate 2</th>
@@ -20,25 +24,32 @@ Games
   </tr>
 </thead>
 
+<% count_eights = 0 %>
+<% count_games = 0 %>
+<% count_wins = 0 %>
+
 <% @player.games.where.not(:winning_team_id => nil ).each do |game| %>
-	<tr>
+  <% count_games += 1 %> 
+  <tr>
   	<td><%= game.mattch.mattch_date %></td>
     <td> vs <%= Team.find(game.matchteams.where.not(:team_id => @player.team_id ).first.team_id).name %></td>
     <td> - game # - <%= game.game_number %></td>
-    <td> <% if game.forfeit %>
-      		 	Forfeit
-     		 <%else %>
-     		 <% if @player.gameplayers.where(:game_id => game).first.eight %>
-     		 		Eight!
-     		 <%else %>
-        		 	 -------
-         <% end %>		 	 
-     		 <% end %> </td>	      
     <td> <% if game.winning_team_id == @player.team_id %>
-        		 	 Won
-     		 <%else %>
-        		 	 Lost
-     		 <% end %> </td>	  
+           Won
+           <% count_wins += 1 %>          
+     	 <%else %>
+           Lost
+     	 <% end %> </td>	  
+    <td> <% if game.forfeit %>
+                Forfeit
+         <%else %>
+           <% if @player.gameplayers.where(:game_id => game).first.eight %>
+             Eight!
+             <% count_eights += 1 %>
+           <%else %>
+             -------
+           <% end %>           
+         <% end %> </td>          
 
     <% game.players.where(:team_id => @player.team_id ).where.not(:id => @player.id ).each do |others| %>   
     	<td><%= others.full_name %></td>
@@ -53,6 +64,26 @@ Games
     <td><%= link_to 'Destroy', game, method: :delete, data: { confirm: 'Are you sure?' } %></td>
     </tr>
   <% end %>
+  <tr>
+    <td></td>
+    <td></td>
+    <td><%= count_games %></td>
+    <td><%= count_wins %></td> 
+    <td><%= count_eights %></td> 
+  </tr>
+  <tr>  
+    <td></td>
+    <td></td>
+    <td></td>
+    <td align="right">
+      <% if (count_games == 0) %>
+        0 </td><td align="right">  0 </td>
+      <% else %>
+        <%= ((count_wins.to_f/count_games)*100).round(0) %> </td>
+        <td align="right"><%= ((count_eights.to_f/count_games)*100).round(0) %>%</td>
+      <% end %>    
+  </tr>
+
 </table>
 
 <%= link_to 'Edit', edit_player_path(@player) %> |
