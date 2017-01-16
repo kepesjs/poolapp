@@ -68,7 +68,9 @@
       </td>
     <%= g.hidden_field :game_number, value: @counter_a %>    
         <td> 
-    <%= g.radio_button :winning_team_id, @team_a_id %>
+    <span class="winning_team_left">    
+    <%= g.radio_button :winning_team_id, @team_a_id%>
+    </span>
     <%= g.radio_button :winning_team_id, 0 %>
     <%= g.radio_button :winning_team_id, @team_b_id%>
         </td>     

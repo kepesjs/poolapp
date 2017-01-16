@@ -12,24 +12,22 @@ function left_team_change(link) {
 //	var strUser = link.options[link.selectedIndex].value;
 //		var e = document.getElementById("elementId");
 
-			alert("Changed Left Team" + link);  
-			alert("Changed Team" + link.value); 
+	alert("Changed Left Team" + link);  
+	  alert("Changed Team" + link.value); 
+
 	var new_team_id = link.value;		  
 
 //  Now reset all the radio buttons to have the new team id
 
-	var ddd = document.getElementsByTagName("input");
-
-
+	var ddd = document.getElementsByClassName("winning_team_left");
+                                             
+  alert("Loadded ddd" + ddd.length + ddd[0].innerHTML);    	
+	
 	var fff = "";
 	for (var i=0; i < ddd.length; i++) 
 	{    
-    if (ddd[i].type == "radio") 
-    {
-    	ddd[i].value = new_team_id;
-    	fff = ddd[i].value;
-			alert("Changed team" + fff + "length: " + ddd.length);    	
-		}
+		  ddd[i].innerHTML = '<input value="3" name="mattch[games_attributes][0][winning_team_id]" id="mattch_games_attributes_0_winning_team_id_team_id" type="radio">'
+			alert("Changed team" + fff + "length: " + ddd.length + ddd[i].innerHTML);    	
 	}
 }
 
