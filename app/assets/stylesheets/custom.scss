@@ -3,18 +3,6 @@ body {
 	color: #340f68;
 }
 
-.btn-primary {
-	color: #fff;
-	background-color: transparent;
-	border-color: white;
-	margin-bottom: 5px;
-}
-.btn-primary:hover {
-	color: #27A967;
-	background-color: white;
-	border-color: white;
-}
-
 h1 {
 	color: #111111;
 }
@@ -23,11 +11,15 @@ a:link {
 	color: #aa147d;
 }
 
-/*
-
-.noo_border {
+.game_span {
 	background-color: white;
-	border-color: white;	
+	border: 2px solid red;
 }
 
-*/
+.select_player_left {
+	background-color: #91b3ea;
+}
+
+.select_player_right {
+	background-color: #ffcccc;
+}

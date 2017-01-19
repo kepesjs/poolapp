@@ -45,10 +45,10 @@
     <%= yield %>
   </body>
 
-<%= link_to 'All Games', games_path %>
-<%= link_to 'All Players', players_path %>
-<%= link_to 'All Matches', mattches_path %>
-<%= link_to 'All Teams', teams_path %>
+<%= link_to 'All Games', games_path, :class=>"btn btn-primary" %> |
+<%= link_to 'All Players', players_path, :class=>"btn btn-primary"  %> |
+<%= link_to 'All Matches', mattches_path, :class=>"btn btn-primary"  %> |
+<%= link_to 'All Teams', teams_path, :class=>"btn btn-primary"  %>
 
 </div>
 

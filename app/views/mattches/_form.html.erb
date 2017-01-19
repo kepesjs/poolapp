@@ -1,4 +1,7 @@
+
+
 <%= form_for(mattch) do |f| %>
+
   <% if mattch.errors.any? %>
     <div id="error_explanation">
       <h2><%= pluralize(mattch.errors.count, "error") %> prohibited this mattch from being saved:</h2>
@@ -10,104 +13,108 @@
     </div>
   <% end %>
 
-  <section class="mattch">
-  <div class="row">
-    <div class="col-sm-4">
-    </div>  
-    <div class="col-sm-4">
-      <div class="field" onclick="this.style.backgroundColor='#990000'">
-        <%= f.label :match_date %>
-        <%= f.date_select :mattch_date %>
+  <div class="container-fluid">
+
+    <div class="row">
+      <div class="col-sm-4">
+         -----
+         -----
+      </div>  
+      <div class="col-sm-4">
+        <div class="field" onclick="this.style.backgroundColor='#990000'">
+          <%= f.label :match_date %>
+          <%= f.date_select :mattch_date %>
+        </div>
       </div>
     </div>
-  </div>
 
-  <% @counter_a = 0 %>
+    <% @counter_a = 0 %>
+    <div class="row">
+      <%= f.fields_for :matchteams do |m| %>
+        <div class="col-sm-6">
 
-  <div class="row">
-    <%= f.fields_for :matchteams do |m| %>
-      <div class="col-sm-6">
+          <%= m.label :team_id %>
+          <% if @counter_a == 0 %>  
+            <%= m.collection_select(:team_id, Team.all.order("name"), :id, :name, {}, 
+                                    html_options={:class=>"team_a",
+                                                  :onchange=>"left_team_change(this)"}) %>
+            <% @team_a_id = :team_id  %>
+          <% else %>
+            <%= m.collection_select(:team_id, Team.all.order("name"), :id, :name, {}, 
+                                    html_options={:class=>"team_b",
+                                                  :onchange=>"right_team_change(this)"}) %>
+            <% @team_b_id = :team_id  %>
+          <% end %>
 
-        <%= m.label :team_id %>
-        <% if @counter_a == 0 %>  
-          <%= m.collection_select(:team_id, Team.all.order("name"), :id, :name, {}, 
-                                  html_options={:onchange=>"left_team_change(this)"}) %>
-          <% @team_a_id = :team_id  %>
-        <% else %>
-          <%= m.collection_select(:team_id, Team.all.order("name"), :id, :name, {}, 
-                                  html_options={:onchange=>"right_team_change(this)"}) %>
-          <% @team_b_id = :team_id  %>
-        <% end %>
+          <%= m.label :home %>
+          <%= m.check_box(:home) %> 
 
-        <%= m.label :home %>
-        <%= m.check_box(:home) %> 
+          <% @counter_a += 1 %>
 
-        <% @counter_a += 1 %>
+        </div>
+      <% end %> 
+    </div>
 
+    <% @counter_a = 0 %>
+    <% @counter_b = 0 %>
+
+    <%= f.fields_for :games do |g| %>
+    <div class="game_span">
+      <div class="row">
+        <div class="col-sm-2">
+          <%= g.label :game %>
+          <%= @counter_a += 1 %>
+          <%= g.label :forfeit %>
+          <%= g.check_box(:forfeit) %>
+        </div>
+        <div class="col-sm-2">
+        </div>
+        <div class="col-sm-3"> 
+          <%= g.hidden_field :game_number, value: @counter_a %>  
+          Winner :   
+          <%= g.collection_select(:winning_team_id, Team.all.order("name"), :id, :name, {}, 
+                                    html_options={:class=>"winning_team",
+                                                  :onchange=>"recount_wins()"}) %>
+        </div>
+        <div class="col-sm-2 current_score" > 
+            Score:   
+        </div>  
       </div>
-    <% end %> 
-  </div>
-  </section">
-    
-  </br>
-
-  <section class="games"> 
-  <table> 
-  <tr>
-  
-  <% @counter_a = 0 %>
-  <% @counter_b = 0 %>
-
-  <%= f.fields_for :games do |g| %>
-      <td class="no_border">
-    <%= g.label :game_number %>  <%= @counter_a += 1 %>
-      </td>
-      <td>        
-    <%= g.label :forfeit %>
-    <%= g.check_box(:forfeit) %>    
-      </td>
-    <%= g.hidden_field :game_number, value: @counter_a %>    
-        <td> 
-    <span class="winning_team_left">    
-    <%= g.radio_button :winning_team_id, @team_a_id%>
-    </span>
-    <%= g.radio_button :winning_team_id, 0 %>
-    <%= g.radio_button :winning_team_id, @team_b_id%>
-        </td>     
-        <td>        
-        </td>
-        <td>        
-        </td>
-        </tr>
-      <tr>
 
     <% @counter_b = 0 %>
+    <div class="row">
     <%= g.fields_for :gameplayers do |p| %>
-        <td class="noo_border">
-      <% if @counter_b < 2 %>   
-        <%= p.collection_select(:player_id, Player.all.order("l_name"), :id, :full_name) %>
-      <% else %>
-        <%= p.collection_select(:player_id, Player.all.order("l_name"), :id, :full_name) %>
-      <% end %>
-      8<%= p.check_box(:eight) %>
 
-      <% @counter_b += 1 %>
-      <% if @counter_b == 2 %>
-        <td> 0  to  1</td>
-      <% end %>
-    <% end %>
-      </tr> 
+        <div class="col-sm-3">
+          <% if @counter_b < 2 %>   
+            <%= p.collection_select(:player_id, Player.all.order("l_name"), :id, :full_name, {}, 
+                                    html_options={:class=>"select_player_left"}) %>
+          <% else %>
+            <%= p.collection_select(:player_id, Player.all.order("l_name"), :id, :full_name, {}, 
+                                    html_options={:class=>"select_player_right"}) %>
+          <% end %>
+          8<%= p.check_box(:eight) %>
+        </div>
+          <% @counter_b += 1 %>
 
     <% end %>
+    </div>
+  </div>    
+<% end %>
 
-  </table>
+</br>
+
+    <div class="actions">
+      <%= f.submit %>
+    </div>  
+
+  </div>
+
+
+<% end %>
+
+
   
-  <div class="actions">
-    <%= f.submit %>
-  </div>  
 
   </br>
 
-  </section>
-
-<% end %>

@@ -15,5 +15,5 @@
   <%= @game.forfeit %>
 </p>
 
-<%= link_to 'Edit', edit_game_path(@game) %> |
-<%= link_to 'Back', games_path %>
+<%= link_to 'Edit', edit_game_path(@game), :class=>"btn btn-primary"  %> |
+<%= link_to 'All Games', games_path, :class=>"btn btn-primary"  %>

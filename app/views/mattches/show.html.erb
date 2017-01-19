@@ -14,16 +14,29 @@
 
 
 <p>
-  <strong>Match date:</strong>
-  <%= @mattch.mattch_date %>
+  <h1> <%= @mattch.mattch_date %> </h1>
 </p>
 
 
 <table class="table table-bordered">
 <tr>
 
+<% team_id_left = 0 %>
+<% team_id_right = 0 %>
+
+<% counter_a = 0 %>
+
 <% @mattch.teams.each do |team|%>
-	<td colspan="2">
+
+  <% if counter_a == 0 %>
+    <% team_id_left = team.id %>
+  <% else %>
+    <% team_id_right = team.id %>   
+  <% end %>
+
+  <% counter_a += 1 %>
+	
+  <td colspan="2">
   	<h2> <%= team.name %> </h2>
   </td>	
 <% end %>
@@ -32,5 +45,60 @@
 
 </table>
 
-<%= link_to 'Edit', edit_mattch_path(@mattch) %> |
-<%= link_to 'Back', mattches_path %>
+<div class="container-fluid">
+
+  <% score_left = 0 %>
+  <% score_right = 0 %>
+
+  <% @mattch.games.each do |game| %>
+
+    <% if game.winning_team_id == team_id_left %>
+      <% score_left += 1 %>
+    <% end %>
+
+    <% if game.winning_team_id == team_id_right %>
+      <% score_right += 1 %>
+    <% end %>
+
+    <div class="game_span">
+      <div class="row">
+        <div class="col-sm-2">
+          Game #
+          <%= game.game_number %>
+          <% if game.forfeit %> 
+            Forfeited
+          <% end %>
+        </div>
+        <div class="col-sm-2">
+        </div>
+        <div class="col-sm-3"> 
+          Winner : <%= Team.find(game.winning_team_id).name %>  
+        </div>
+        <div class="col-sm-2 current_score" > 
+          Score: 
+
+          <% if game.winning_team_id != 0 %> 
+            <%= score_left.to_s + " - " + score_right.to_s %> 
+          <% end %> 
+        </div>  
+      </div>
+
+      <div class="row">
+        <% game.players.each do |player| %>
+          <div class="col-sm-3">
+            <%= player.full_name %>
+          </div>
+        <% end %>
+      </div>
+    </div>  
+  <% end %>
+     
+  </div>
+
+</div>    
+
+</br>
+
+<%= link_to 'Refresh', @mattch, :class=>"btn btn-primary" %> |
+<%= link_to 'Edit Match', edit_mattch_path(@mattch), :class=>"btn btn-primary" %> |
+<%= link_to 'All Matches', mattches_path, :class=>"btn btn-primary" %> |

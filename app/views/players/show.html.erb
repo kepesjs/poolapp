@@ -86,5 +86,5 @@ Matches played:<%= @player.games.where.not(:winning_team_id => nil ).count("DIST
 
 </table>
 
-<%= link_to 'Edit', edit_player_path(@player) %> |
-<%= link_to 'All Players', players_path %>
+<%= link_to 'Edit Player', edit_player_path(@player), :class=>"btn btn-primary"  %> |
+<%= link_to 'All Players', players_path, :class=>"btn btn-primary"  %>

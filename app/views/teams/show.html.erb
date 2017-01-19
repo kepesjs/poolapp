@@ -12,7 +12,7 @@
 
 <div>
 <p><h2> Players </h1>
-<table>
+<table class="table">
 <thead>
   <tr>
     <th>Name</th>
@@ -45,16 +45,22 @@
     </tr>
   <% end %>
 </tbody>
-
 </table>
 </div>
 
 <div>
 <p><h2> Matches </h1>
-<table>
+
+<% @matches_ctr = 0 %>
+<% @our_games_ctr = 0 %>
+<% @their_games_ctr = 0 %>
+
+<table class="table">
 <tbody>
   <% @team.mattches.order(:mattch_date).each do |match| %>
+    <% @matches_ctr += 1 %>
     <tr>
+      <td><%= @matches_ctr %> </td>
       <td><%= match.mattch_date %></td>
       <td><%= match.teams.where.not(:id => @team).first.name%></td>
 
@@ -67,6 +73,11 @@
 
       <td><%= match.games.where(:winning_team_id => @team).count%></td>
       <td><%= match.games.where.not(:winning_team_id => @team).where.not(:winning_team_id => 0).count%></td>
+      
+      <% @our_games_ctr += match.games.where(:winning_team_id => @team).count %>
+      <% @their_games_ctr += match.games.where.not(:winning_team_id => @team).where.not(:winning_team_id => 0).count %>
+      <td><%= @our_games_ctr %> </td>
+      <td><%= @their_games_ctr %> </td>
 
       <td><%= link_to 'Show', match %></td>
       <td><%= link_to 'Edit', edit_mattch_path(match) %></td>
@@ -80,6 +91,6 @@
 
 
 
-<%= link_to 'Edit', edit_team_path(@team) %> |
-<%= link_to 'All Teams', teams_path %> |
-<%= link_to 'Add Player', new_player_path %>
+<%= link_to 'Edit', edit_team_path(@team), :class=>"btn btn-primary"  %> |
+<%= link_to 'All Teams', teams_path, :class=>"btn btn-primary"  %> |
+<%= link_to 'Add Player', new_player_path, :class=>"btn btn-primary"  %>

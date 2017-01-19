@@ -9,6 +9,12 @@
 
 ,:selected=>0
 
+    <span class="winning_team_left">    
+    <%= g.radio_button :winning_team_id, @team_a_id%>
+    </span>
+    <%= g.radio_button :winning_team_id, 0 %>
+    <%= g.radio_button :winning_team_id, @team_b_id%>
+
 
 <%= form_for(mattch) do |f| %>
   <% if mattch.errors.any? %>
