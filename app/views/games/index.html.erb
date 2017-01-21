@@ -20,8 +20,10 @@
         <td><%= game.forfeit %></td>
         <td><%= game.winning_team_id %></td>
         <td><%= link_to 'Show', game %></td>
-        <td><%= link_to 'Edit', edit_game_path(game) %></td>
-        <td><%= link_to 'Destroy', game, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+        <% if (current_user.admin? || current_user.captain? ) %>
+          <td><%= link_to 'Edit', edit_game_path(game) %></td>
+          <td><%= link_to 'Destroy', game, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+        <% end %>  
       </tr>
     <% end %>
   </tbody>

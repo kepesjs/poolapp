@@ -19,8 +19,10 @@
         <td><%= team.captain_1.full_name%></td>
         <td><%= team.captain_2.full_name%></td>
         <td><%= link_to 'Show', team %></td>
-        <td><%= link_to 'Edit', edit_team_path(team) %></td>
-        <td><%= link_to 'Destroy', team, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+        <% if (current_user.admin? || (current_user.captain? && current_user.user_team == team.id)) %>
+          <td><%= link_to 'Edit', edit_team_path(team) %></td>
+          <td><%= link_to 'Destroy', team, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+        <% end %>
       </tr>
     <% end %>
   </tbody>

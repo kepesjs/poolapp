@@ -72,7 +72,10 @@
         <div class="col-sm-2">
         </div>
         <div class="col-sm-3"> 
-          Winner : <%= Team.find(game.winning_team_id).name %>  
+          Winner : 
+          <% if Team.find(game.winning_team_id) %>  
+            <%= Team.find(game.winning_team_id).name %>  
+          <% end %>
         </div>
         <div class="col-sm-2 current_score" > 
           Score: 

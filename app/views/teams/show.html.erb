@@ -40,8 +40,10 @@
       <% end %>  
       <td align="right"><%= player.gameplayers.where(:eight => true).count%></td>
       <td><%= link_to 'Show', player %></td>
-      <td><%= link_to 'Edit', edit_player_path(player) %></td>
-      <td><%= link_to 'Destroy', player, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+      <% if current_user.admin? %>
+        <td><%= link_to 'Edit', edit_player_path(player) %></td>
+        <td><%= link_to 'Destroy', player, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+      <% end %>
     </tr>
   <% end %>
 </tbody>
@@ -80,8 +82,10 @@
       <td><%= @their_games_ctr %> </td>
 
       <td><%= link_to 'Show', match %></td>
-      <td><%= link_to 'Edit', edit_mattch_path(match) %></td>
-      <td><%= link_to 'Destroy', match, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+      <% if current_user.admin? %>
+        <td><%= link_to 'Edit', edit_mattch_path(match) %></td>
+        <td><%= link_to 'Destroy', match, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+      <% end %>  
     </tr>
   <% end %>
 </tbody>

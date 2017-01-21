@@ -16,12 +16,18 @@
     <% @mattches.each do |mattch| %>
       <tr>
         <td><%= mattch.mattch_date %></td>
+        <% @captains_team = 'false' %>
         <% mattch.teams.each do |team| %>
           <td><%= team.name %></td>
+          <% if current_user.user_team == team.id %>
+            <% @captains_team = 'true' %>
+          <% end %>
         <% end %>
         <td><%= link_to 'Show', mattch %></td>
-        <td><%= link_to 'Edit', edit_mattch_path(mattch) %></td>
-        <td><%= link_to 'Destroy', mattch, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+        <% if (current_user.admin? || (current_user.captain? && @captains_team == 'true' )) %>
+          <td><%= link_to 'Edit', edit_mattch_path(mattch) %></td>
+          <td><%= link_to 'Destroy', mattch, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+        <% end %>  
       </tr>
     <% end %>
   </tbody>
