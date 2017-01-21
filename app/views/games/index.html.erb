@@ -16,6 +16,8 @@
     <% @games.each do |game| %>
       <tr>
         <td><%= game.mattch_id %></td>
+        <td><%= game.mattch.mattch_date %></td>
+        <td><%= game.matchteams.first.team.name %></td>
         <td><%= game.game_number %></td>
         <td><%= game.forfeit %></td>
         <td><%= game.winning_team_id %></td>

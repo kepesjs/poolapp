@@ -71,17 +71,18 @@
         </div>
         <div class="col-sm-2">
         </div>
-        <div class="col-sm-3"> 
+        <div class="col-sm-2"> 
           Winner : 
-          <% if Team.find(game.winning_team_id) %>  
+          <% if game.winning_team_id %>  
             <%= Team.find(game.winning_team_id).name %>  
           <% end %>
         </div>
-        <div class="col-sm-2 current_score" > 
+        <div class="col-sm-1">
           Score: 
-
-          <% if game.winning_team_id != 0 %> 
-            <%= score_left.to_s + " - " + score_right.to_s %> 
+        </div>
+        <div class="col-sm-4 current_score" >  
+          <% if game.winning_team_id != 0 &&  game.winning_team_id %> 
+            <h4> <%= score_left.to_s + " - " + score_right.to_s %>  </h4>
           <% end %> 
         </div>  
       </div>

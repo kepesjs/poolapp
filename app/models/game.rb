@@ -1,6 +1,6 @@
 class Game < ApplicationRecord
 
-	has_many :gameplayers, inverse_of: :game
+	has_many :gameplayers, inverse_of: :game, dependent: :destroy
 	has_many :players, through: :gameplayers
 	belongs_to :mattch, inverse_of: :games
 

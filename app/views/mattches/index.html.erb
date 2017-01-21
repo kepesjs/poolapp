@@ -16,13 +16,29 @@
     <% @mattches.each do |mattch| %>
       <tr>
         <td><%= mattch.mattch_date %></td>
+
         <% @captains_team = 'false' %>
+        <% @counter_b = 0 %>
+        <% @team_a = 0 %>
+        <% @team_b = 0 %>
+
         <% mattch.teams.each do |team| %>
           <td><%= team.name %></td>
           <% if current_user.user_team == team.id %>
             <% @captains_team = 'true' %>
           <% end %>
+
+          <% if @counter_b == 0 %>
+            <% @team_a = team.id %>
+          <% else %>
+            <% @team_b = team.id %>            
+          <% end %>
+
         <% end %>
+
+        <td> <%= mattch.games.where(:winning_team_id => @team_a).count %> </td>
+        <td> <%= mattch.games.where(:winning_team_id => @team_b).count %> </td>
+
         <td><%= link_to 'Show', mattch %></td>
         <% if (current_user.admin? || (current_user.captain? && @captains_team == 'true' )) %>
           <td><%= link_to 'Edit', edit_mattch_path(mattch) %></td>
