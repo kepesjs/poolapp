@@ -1,0 +1,8 @@
+
+Team id = <%= @team_id %>
+<%= fields_for :player do |p| %>
+
+ <%= p.collection_select(:id, Player.where(:team_id => @team_id).order("l_name"), :id, :full_name,
+  {}, html_options={:class=>"select_player_left"}) %>
+
+<% end %>                                    

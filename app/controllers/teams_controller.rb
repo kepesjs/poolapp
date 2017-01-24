@@ -3,16 +3,13 @@ class TeamsController < ApplicationController
   before_action :set_team, only: [:show, :edit, :update, :destroy]
 
   def teamplayers
-    # has @team
-#    @players = @team.players
-    @players = Player.select("id, f_name, l_name").where("team_id = ?", params[:id])
+#    @players = Player.select("id, f_name, l_name").where("team_id = ?", params[:id])
 
-#    render js: "alert('JS back from serverThe number is: ');" 
-  #  render json: @team
- #   "alert('JS back from serverThe number is: ');" 
-    render :json => @players
+#    render :json => @players
      #=> { :success => true,:team_players => @players.as_json() }
  #    render js: teamplayers.js.erb
+    @team_id = params[:id]
+    render "teams/teamplayers.html.erb", layout: false
   end  
 
   # GET /teams
@@ -85,6 +82,6 @@ class TeamsController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def team_params
-      params.require(:team).permit(:name, :captain, :captain2)
+      params.require(:team).permit(:name, :captain, :captain2, :id)
     end
 end

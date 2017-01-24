@@ -68,26 +68,34 @@ function left_team_change(link) {
 
   // testing //
   var xhttp;
-  
+  var stuff = ' ';
+
   xhttp = new XMLHttpRequest();
+
   xhttp.onreadystatechange = function() {
     if (this.readyState == 4 && this.status == 200) {
        alert("got responce"); 
        alert("this" + this.responseText);
+       
+       stuff = this.responseText.substr(84);
+
+       alert("this" + stuff);
+
        // document.getElementById("txtHint").innerHTML = this.responseText;
     }
   };
+
   var my_path = "/team_players/" + new_team_id;
   xhttp.open("GET", my_path, true);
   xhttp.send();
 
-	alert("after send")
+	alert("after send"+stuff)
 
 	var fff = "";
 	for (var i=0; i < ddd.length; i++) 
 	{    
-// 		  ddd[i].innerHTML = '<input value="3" name="mattch[games_attributes][0][winning_team_id]" id="mattch_games_attributes_0_winning_team_id_team_id" type="radio">'
-//			alert("Changed team" + fff + "length: " + ddd.length + ddd[i].innerHTML);    	
+ 		  ddd[i].innerHTML = stuff;
+ 		  alert("Changed team" + fff + "length: " + ddd.length + ddd[i].innerHTML);    	
 	}
 }
 
