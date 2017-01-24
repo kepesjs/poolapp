@@ -2,22 +2,30 @@
 
 <h1>Teams</h1>
 
-<table>
-  <thead>
+
+<div class="container">
+<div class="col-sm-9">
+<table class="table table-bordered">
+  <thead class="thead-inverse">
     <tr>
       <th>Name</th>
       <th>Captain</th>
       <th>Captain2</th>
+      <th>Games won</th>
       <th colspan="3"></th>
     </tr>
   </thead>
 
   <tbody>
     <% @teams.each do |team| %>
+      <% if team.id === 0 %>
+        <% next %>
+      <% end %>
       <tr>
         <td><%= team.name %></td>
         <td><%= team.captain_1.full_name%></td>
         <td><%= team.captain_2.full_name%></td>
+        <td class="text-right"> <%= @games.where(:winning_team_id => team.id).count %> </td>
         <td><%= link_to 'Show', team %></td>
         <% if (current_user.admin? || (current_user.captain? && current_user.user_team == team.id)) %>
           <td><%= link_to 'Edit', edit_team_path(team) %></td>
@@ -27,6 +35,9 @@
     <% end %>
   </tbody>
 </table>
+
+</div>
+</div>
 
 <br>
 

@@ -12,12 +12,12 @@ $( document ).ready(function() {
 
 function recount_wins() {
 
-	alert("in recount_wins");
+//	alert("in recount_wins");
 
 	var team_a = document.getElementsByClassName("team_a")[0].value;
   var team_b = document.getElementsByClassName("team_b")[0].value;
 
-	alert("in recount_wins: " + team_a + " " + team_b);
+//	alert("in recount_wins: " + team_a + " " + team_b);
 
 	var ddd = document.getElementsByClassName("winning_team");
 	var outp = document.getElementsByClassName("current_score");
@@ -55,16 +55,34 @@ function left_team_change(link) {
 //		var e = document.getElementById("elementId");
 
 	alert("Changed Left Team" + link);  
-	  alert("Changed Team" + link.value); 
+// 	  alert("Changed Team" + link.value); 
 
 	var new_team_id = link.value;		  
 
 //  Now reset all the radio buttons to have the new team id
 
-	var ddd = document.getElementsByClassName("winning_team_left");
+	var ddd = document.getElementsByClassName("select_player_left");
                                              
-  alert("Loadded ddd" + ddd.length + ddd[0].innerHTML);    	
-	
+//  alert("Loadded ddd" + ddd.length + ddd[0].innerHTML);  
+//  alert("Loadded ddd" + ddd.length + ddd[0]);  
+
+  // testing //
+  var xhttp;
+  
+  xhttp = new XMLHttpRequest();
+  xhttp.onreadystatechange = function() {
+    if (this.readyState == 4 && this.status == 200) {
+       alert("got responce"); 
+       alert("this" + this.responseText);
+       // document.getElementById("txtHint").innerHTML = this.responseText;
+    }
+  };
+  var my_path = "/team_players/" + new_team_id;
+  xhttp.open("GET", my_path, true);
+  xhttp.send();
+
+	alert("after send")
+
 	var fff = "";
 	for (var i=0; i < ddd.length; i++) 
 	{    

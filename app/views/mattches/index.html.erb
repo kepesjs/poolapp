@@ -17,7 +17,7 @@
       <tr>
         <td><%= mattch.mattch_date %></td>
 
-        <% @captains_team = 'false' %>
+        <% @captains_team = 'false' %> 
         <% @counter_b = 0 %>
         <% @team_a = 0 %>
         <% @team_b = 0 %>
@@ -33,7 +33,7 @@
           <% else %>
             <% @team_b = team.id %>            
           <% end %>
-
+          <% @counter_b += 1 %>
         <% end %>
 
         <td> <%= mattch.games.where(:winning_team_id => @team_a).count %> </td>

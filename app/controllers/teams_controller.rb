@@ -1,11 +1,26 @@
 class TeamsController < ApplicationController
+ protect_from_forgery except: :teamplayers
   before_action :set_team, only: [:show, :edit, :update, :destroy]
+
+  def teamplayers
+    # has @team
+#    @players = @team.players
+    @players = Player.select("id, f_name, l_name").where("team_id = ?", params[:id])
+
+#    render js: "alert('JS back from serverThe number is: ');" 
+  #  render json: @team
+ #   "alert('JS back from serverThe number is: ');" 
+    render :json => @players
+     #=> { :success => true,:team_players => @players.as_json() }
+ #    render js: teamplayers.js.erb
+  end  
 
   # GET /teams
   # GET /teams.json
   def index
     @teams = Team.all
     @players = Player.all
+    @games = Game.all
   end
 
   # GET /teams/1
