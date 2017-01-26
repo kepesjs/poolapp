@@ -10,10 +10,10 @@
   <%= @team.captain_2.full_name %>
 </p>
 
-<div>
+<div class="container">
 <p><h2> Players </h1>
-<table class="table">
-<thead>
+<table class="table table-bordered">
+<thead class="thead-inverse">
   <tr>
     <th>Name</th>
     <th>Team</th>
@@ -29,7 +29,7 @@
     <tr>
       <td><%= player.full_name %></td>
       <td><%= player.team.name%></td>
-      <% @games_played = player.games.where.not(:winning_team_id => nil ).count %>
+      <% @games_played = player.games.where.not(:winning_team_id => 0 ).count %>
       <td align="right"><%= @games_played %></td>
       <% @games_won = player.games.where(:winning_team_id => player.team_id).count %>
       <td align="right"><%= @games_won %></td>
@@ -50,7 +50,7 @@
 </table>
 </div>
 
-<div>
+<div class="container">
 <p><h2> Matches </h1>
 
 <% @matches_ctr = 0 %>
@@ -95,4 +95,4 @@
 
 <%= link_to 'Edit', edit_team_path(@team), :class=>"btn btn-primary"  %> |
 <%= link_to 'All Teams', teams_path, :class=>"btn btn-primary"  %> |
-<%= link_to 'Add Player', new_player_path, :class=>"btn btn-primary"  %>
+<%= link_to 'Add Player', new_player_path, :class=>"btn btn-primary"  %> |

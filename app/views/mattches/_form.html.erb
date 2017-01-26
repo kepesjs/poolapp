@@ -14,11 +14,8 @@
   <% end %>
 
   <div class="container-fluid">
-
     <div class="row">
       <div class="col-sm-4">
-         -----
-         -----
       </div>  
       <div class="col-sm-4">
         <div class="field" onclick="this.style.backgroundColor='#990000'">
@@ -29,21 +26,24 @@
     </div>
 
     <% @counter_a = 0 %>
+    <% @team_a_id = @mattch.matchteams.first.team_id  %>
+    <% @team_b_id = @mattch.matchteams.last.team_id  %>
+
     <div class="row">
       <%= f.fields_for :matchteams do |m| %>
         <div class="col-sm-6">
 
           <%= m.label :team_id %>
           <% if @counter_a == 0 %>  
+            <% @team_a_id = @mattch.matchteams.first.team_id  %>
             <%= m.collection_select(:team_id, Team.all.order("name"), :id, :name, {}, 
                                     html_options={:class=>"team_a",
                                                   :onchange=>"left_team_change(this)"}) %>
-            <% @team_a_id = :team_id  %>
           <% else %>
+            <% @team_b_id = @mattch.matchteams.last.team_id  %>
             <%= m.collection_select(:team_id, Team.all.order("name"), :id, :name, {}, 
                                     html_options={:class=>"team_b",
                                                   :onchange=>"right_team_change(this)"}) %>
-            <% @team_b_id = :team_id  %>
           <% end %>
 
           <%= m.label :home %>
@@ -54,6 +54,10 @@
         </div>
       <% end %> 
     </div>
+
+    <%= @team_a_id  %>
+    <%= @team_b_id  %>
+
 
     <% @counter_a = 0 %>
     <% @counter_b = 0 %>
@@ -87,10 +91,9 @@
 
         <div class="col-sm-3">
           <% if @counter_b < 2 %>   
-            <%= p.collection_select(:player_id, Player.all.order("l_name"), :id, :full_name, {}, 
-                                    html_options={:class=>"select_player_left"}) %>
+            <%= p.collection_select(:player_id, Player.where(:team_id => @team_a_id).order("l_name"), :id, :full_name, {},html_options={:class=>"select_player_left"}) %>
           <% else %>
-            <%= p.collection_select(:player_id, Player.all.order("l_name"), :id, :full_name, {}, 
+            <%= p.collection_select(:player_id, Player.where(:team_id => @team_b_id).order("l_name"), :id, :full_name, {}, 
                                     html_options={:class=>"select_player_right"}) %>
           <% end %>
           8<%= p.check_box(:eight) %>

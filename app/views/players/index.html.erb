@@ -1,9 +1,11 @@
 <p id="notice"><%= notice %></p>
 
+<div class="container">
+<div class="col-sm-9">
 <h1>All Players</h1>
 
-<table>
-  <thead>
+<table class="table table-bordered table-condensed">
+  <thead class="thead-inverse">
     <tr>
       <th>Name</th>
       <th>Team</th>
@@ -21,12 +23,12 @@
       <tr>
         <td><%= player.full_name %></td>
         <td><%= player.team.name%></td>
-        <% @games_played = player.games.where.not(:winning_team_id => nil ).count %>
+        <% @games_played = player.games.where.not(:winning_team_id => 0 ).count %>
         <td align="right"><%= @games_played %></td>
         <% @games_won = player.games.where(:winning_team_id => player.team_id).count %>
         <td align="right"><%= @games_won %></td>
         <% if @games_played != 0 %>
-          <td align="right"><%= ((@games_won.to_f/@games_played)*100).round(2) %>%</td>
+          <td align="right"><%= ((@games_won.to_f/@games_played)*100).round(0) %>%</td>
         <% else %>
           <td align="right"> 0 </td>
         <% end %>  
@@ -42,5 +44,7 @@
 </table>
 
 <br>
+</div>
+</div>
 
 <%= link_to 'New Player', new_player_path, :class=>"btn btn-primary" %>

@@ -5,8 +5,11 @@
 //$(document).on('turbolinks:load', recount_wins()); // Turbolinks 5
 
 // document.ready=recount_wins();
+// $( document ).ready(function() {
 
-$( document ).ready(function() {
+
+
+$(document).on('turbolinks:load', function() {
    recount_wins();
 });
 
@@ -51,39 +54,26 @@ function recount_wins() {
 
 function left_team_change(link) {
 
-//	var strUser = link.options[link.selectedIndex].value;
-//		var e = document.getElementById("elementId");
-
-	alert("Changed Left Team" + link);  
-// 	  alert("Changed Team" + link.value); 
-
 	var new_team_id = link.value;		  
-
-//  Now reset all the radio buttons to have the new team id
-
-	var ddd = document.getElementsByClassName("select_player_left");
-                                             
-//  alert("Loadded ddd" + ddd.length + ddd[0].innerHTML);  
-//  alert("Loadded ddd" + ddd.length + ddd[0]);  
-
-  // testing //
+                                           
   var xhttp;
-  var stuff = ' ';
-
   xhttp = new XMLHttpRequest();
 
   xhttp.onreadystatechange = function() {
     if (this.readyState == 4 && this.status == 200) {
-       alert("got responce"); 
-       alert("this" + this.responseText);
        
-       stuff = this.responseText.substr(84);
+      var stuff = this.responseText.substr(84);
 
-       alert("this" + stuff);
+			//  Now reset all the radio buttons to have the new team id
+			
+			var ddd = document.getElementsByClassName("select_player_left");
 
-       // document.getElementById("txtHint").innerHTML = this.responseText;
+			for (var i=0; i < ddd.length; i++) 
+			{    
+ 		  	ddd[i].innerHTML = stuff;
+			}
     }
-  };
+ 	};
 
   var my_path = "/team_players/" + new_team_id;
   xhttp.open("GET", my_path, true);
@@ -91,37 +81,34 @@ function left_team_change(link) {
 
 	alert("after send"+stuff)
 
-	var fff = "";
-	for (var i=0; i < ddd.length; i++) 
-	{    
- 		  ddd[i].innerHTML = stuff;
- 		  alert("Changed team" + fff + "length: " + ddd.length + ddd[i].innerHTML);    	
-	}
 }
 
 function right_team_change(link) {
 
-//	var strUser = link.options[link.selectedIndex].value;
-//		var e = document.getElementById("elementId");
-
-			alert("Changed Right Team" + link);  
-			alert("Changed Team" + link.value);
-
 	var new_team_id = link.value;		  
 	
-//  Now reset all the radio buttons to have the new team id
+  var xhttp;
+  xhttp = new XMLHttpRequest();
 
-	var ddd = document.getElementsByTagName("input");
+  xhttp.onreadystatechange = function() {
+    if (this.readyState == 4 && this.status == 200) {
+       
+      var stuff = this.responseText.substr(84);
 
+			//  Now reset all the radio buttons to have the new team id
+			
+			var ddd = document.getElementsByClassName("select_player_right");
 
-	var fff = "";
-	for (var i=0; i < ddd.length; i++) 
-	{    
-    if (ddd[i].type == "radio") 
-    {
- //   	ddd[i].value = new_team_id;
-    	fff = ddd[i].value;
-//			alert("Changed question" + fff + ddd.length);    	
-		}
-	}
+			for (var i=0; i < ddd.length; i++) 
+			{    
+ 		  	ddd[i].innerHTML = stuff;
+			}
+    }
+ 	};
+
+  var my_path = "/team_players/" + new_team_id;
+  xhttp.open("GET", my_path, true);
+  xhttp.send();
+
+	alert("after send"+stuff)
 }
