@@ -1,8 +1,10 @@
 require 'test_helper'
+include Devise::TestHelpers
 
 class TeamsControllerTest < ActionDispatch::IntegrationTest
   setup do
     @team = teams(:one)
+    sign_in User.first
   end
 
   test "should get index" do

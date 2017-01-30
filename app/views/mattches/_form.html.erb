@@ -14,16 +14,6 @@
   <% end %>
 
   <div class="container-fluid">
-    <div class="row">
-      <div class="col-sm-4">
-      </div>  
-      <div class="col-sm-4">
-        <div class="field" onclick="this.style.backgroundColor='#990000'">
-          <%= f.label :match_date %>
-          <%= f.date_select :mattch_date %>
-        </div>
-      </div>
-    </div>
 
     <% @counter_a = 0 %>
     <% @team_a_id = @mattch.matchteams.first.team_id  %>
@@ -31,7 +21,7 @@
 
     <div class="row">
       <%= f.fields_for :matchteams do |m| %>
-        <div class="col-sm-6">
+        <div class="col-sm-4">
 
           <%= m.label :team_id %>
           <% if @counter_a == 0 %>  
@@ -48,10 +38,16 @@
 
           <%= m.label :home %>
           <%= m.check_box(:home) %> 
+          <% if @counter_a == 0 %>
+            </div><div class="col-sm-4">
+              <%= f.date_select :mattch_date %>
+            </div>
+          <% else %>
+            </div>  
+          <% end %>  
 
           <% @counter_a += 1 %>
 
-        </div>
       <% end %> 
     </div>
 
