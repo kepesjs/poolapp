@@ -1,8 +1,16 @@
 <p id="notice"><%= notice %></p>
 
 <div class="container">
-<div class="col-sm-9">
+<div class="row">
+<div class="col-sm-6">
 <h1>All Players</h1>
+</div> 
+<div class="col-sm-3">
+<%= link_to 'Add Player', new_player_path, :class=>"btn btn-primary" %>
+</div>
+</div>
+<div class="row">
+<div class="col-sm-9">
 
 <table class="table table-bordered table-condensed">
   <thead class="thead-inverse">
@@ -22,7 +30,9 @@
     <% @players.order(:l_name).each do |player| %>
       <tr>
         <td><%= player.full_name %></td>
-        <td><%= player.team.name%></td>
+        <td><%= link_to player.team do %>
+              <%= player.team.name%>
+            <% end %> </td>
         <% @games_played = player.games.where.not(:winning_team_id => 0 ).count %>
         <td align="right"><%= @games_played %></td>
         <% @games_won = player.games.where(:winning_team_id => player.team_id).count %>
@@ -47,4 +57,4 @@
 </div>
 </div>
 
-<%= link_to 'New Player', new_player_path, :class=>"btn btn-primary" %>
+<%= link_to 'Add Player', new_player_path, :class=>"btn btn-primary" %> |

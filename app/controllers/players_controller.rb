@@ -4,7 +4,7 @@
   # GET /players
   # GET /players.json
   def index
-    @players = Player.all
+    @players = Player.all.order(:f_name)
   end
 
   # GET /players/1
@@ -28,7 +28,7 @@
 
     respond_to do |format|
       if @player.save
-        format.html { redirect_to @player, notice: 'Player was successfully created.' }
+        format.html { redirect_to players_url, notice: 'Player was successfully created.' }
         format.json { render :show, status: :created, location: @player }
       else
         format.html { render :new }
