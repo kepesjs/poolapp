@@ -15,6 +15,7 @@
   <tbody>
     <% @games.each do |game| %>
       <tr>
+        <td><%= game.id %></td>
         <td><%= game.mattch_id %></td>
         <td><%= game.mattch.mattch_date %></td>
         <td><%= game.matchteams.first.team.name %></td>

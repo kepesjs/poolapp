@@ -50,7 +50,7 @@
   <% score_left = 0 %>
   <% score_right = 0 %>
 
-  <% @mattch.games.each do |game| %>
+  <% @mattch.games.order(:game_number).each do |game| %>
 
     <% if game.winning_team_id == team_id_left %>
       <% score_left += 1 %>
@@ -88,12 +88,17 @@
       </div>
 
       <div class="row">
-        <% game.players.each do |player| %>
-          <div class="col-sm-3">
-            <%= player.full_name %>
+        <% game.gameplayers.order(:gameplayer_number).each do |gplayer| %>
+          <div class="player_name col-sm-3">
+            <% if gplayer.eight%>
+              ***<%= gplayer.player.full_name %>***
+            <% else %>
+              <%= gplayer.player.full_name %>
+            <% end %>
           </div>
         <% end %>
       </div>
+
     </div>  
   <% end %>
      

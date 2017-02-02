@@ -1,6 +1,6 @@
 
 
-<%= form_for(mattch) do |f| %>
+<%= form_for(@mattch) do |f| %>
 
   <% if mattch.errors.any? %>
     <div id="error_explanation">
@@ -58,7 +58,7 @@
     <% @counter_a = 0 %>
     <% @counter_b = 0 %>
 
-    <%= f.fields_for :games do |g| %>
+    <%= f.fields_for :games, @games do |g| %>
     <div class="game_span">
       <div class="row">
         <div class="col-sm-2">
@@ -83,7 +83,8 @@
 
     <% @counter_b = 0 %>
     <div class="row">
-    <%= g.fields_for :gameplayers do |p| %>
+
+    <%= g.fields_for :gameplayers, g.object.gameplayers do |p| %>
 
         <div class="col-sm-3">
           <% if @counter_b < 2 %>   
@@ -95,7 +96,7 @@
           8<%= p.check_box(:eight) %>
         </div>
           <% @counter_b += 1 %>
-
+          <%= g.hidden_field :gameplayer_number, value: @counter_b %>  
     <% end %>
     </div>
   </div>    

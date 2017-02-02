@@ -18,15 +18,18 @@
     @mattch = Mattch.new
     2.times { @mattch.matchteams.build }
     21.times do
-      @xxx = @mattch.games.build(:winning_team_id => 0)
-      4.times do
-        @xxx.gameplayers.build
+      @game = @mattch.games.build(:winning_team_id => 0)
+     # 4.times do
+      for i in 1..4 do 
+        @game.gameplayers.build(:gameplayer_number => i)
       end
     end
   end
 
   # GET /mattches/1/edit
   def edit
+    @mattch = Mattch.find(params[:id])
+    @games = @mattch.games.order(:game_number)
   end
 
   # POST /mattches
@@ -80,6 +83,6 @@
       params.require(:mattch).permit(:mattch_date, 
         matchteams_attributes: [:team_id, :mattch_id, :id, :home],
          games_attributes: [:forfeit, :id, :game_number, :winning_team_id,
-         gameplayers_attributes: [:id, :player_id, :eight]])
+         gameplayers_attributes: [:id, :player_id, :eight, :gameplayer_number]])
     end
 end
