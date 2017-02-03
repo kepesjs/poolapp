@@ -18,7 +18,7 @@
 </p>
 
 
-<table class="table table-bordered">
+<table class="table table-bordered players_table">
 <tr>
 
 <% team_id_left = 0 %>
@@ -69,33 +69,43 @@
             Forfeited
           <% end %>
         </div>
-        <div class="col-sm-2">
+        <div class="col-sm-2 winner_text">
+          
         </div>
-        <div class="col-sm-2"> 
-          Winner : 
+        <div class="col-sm-2 winning_team"> 
           <% if game.winning_team_id %>  
             <%= Team.find(game.winning_team_id).name %>  
           <% end %>
         </div>
-        <div class="col-sm-1">
-          Score: 
-        </div>
-        <div class="col-sm-4 current_score" >  
+        <div class="col-sm-4 current_score text-right" >  
           <% if game.winning_team_id != 0 &&  game.winning_team_id %> 
-            <h4> <%= score_left.to_s + " - " + score_right.to_s %>  </h4>
+            <%= score_left.to_s + " - " + score_right.to_s %>
           <% end %> 
         </div>  
       </div>
 
-      <div class="row">
+      <% @counter_c = 0 %>
+      <div class="row players_row">
         <% game.gameplayers.order(:gameplayer_number).each do |gplayer| %>
-          <div class="player_name col-sm-3">
-            <% if gplayer.eight%>
-              ***<%= gplayer.player.full_name %>***
-            <% else %>
-              <%= gplayer.player.full_name %>
-            <% end %>
-          </div>
+          <% if @counter_c == 0 %>
+            <div class="player_name col-sm-3 player_left">
+              <% if gplayer.eight%>
+                ***<%= gplayer.player.full_name %>***
+              <% else %>
+                <%= gplayer.player.full_name %>
+              <% end %>
+            </div>
+          <% else %>
+            <div class="player_name col-sm-3">
+              <% if gplayer.eight%>
+                ***<%= gplayer.player.full_name %>***
+              <% else %>
+                <%= gplayer.player.full_name %>
+              <% end %>
+              <% @counter_c = -1 %>
+            </div>           
+          <% end %>
+          <% @counter_c += 1 %>
         <% end %>
       </div>
 

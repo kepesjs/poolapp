@@ -13,7 +13,8 @@ a:link {
 
 .game_span {
 	background-color: white;
-	border: 2px solid red;
+	border: 1px solid red;
+	line-height: 110%;
 }
 
 .select_player_left {
@@ -28,3 +29,26 @@ a:link {
 	font-size: large;
 }
 
+.players_table td {
+	padding: 2px;
+}
+
+.players_row {
+	font-size: large;
+}
+
+.current_score {
+	font-size: large;
+}
+
+.player_left {
+	text-align: right;
+}
+
+.winner_text {
+	text-align: right;
+}
+
+.winning_team {
+	text-align: center;
+}

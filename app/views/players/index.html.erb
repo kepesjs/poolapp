@@ -10,9 +10,9 @@
 </div>
 </div>
 <div class="row">
-<div class="col-sm-9">
+<div class="col-sm-12 player_table">
 
-<table class="table table-bordered table-condensed">
+<table class="table table-bordered players_table">
   <thead class="thead-inverse">
     <tr>
       <th>Name</th>
@@ -27,7 +27,7 @@
   </thead>
 
   <tbody>
-    <% @players.order(:l_name).each do |player| %>
+    <% @players.order(:f_name).each do |player| %>
       <tr>
         <td><%= player.full_name %></td>
         <td><%= link_to player.team do %>
